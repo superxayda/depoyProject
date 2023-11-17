@@ -1,0 +1,18 @@
+html:not([dir=rtl]) {
+    .wrapper {
+        padding-left: var(--cui-sidebar-occupy-start,0);
+    }
+}
+.paginator__container {
+    nav {
+        ul {
+            justify-content: end;
+            flex-wrap: wrap;
+            li {
+                a {
+                    color: #000;
+                }
+            }
+        }
+    }
+}

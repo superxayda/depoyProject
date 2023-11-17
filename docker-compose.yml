@@ -1,0 +1,24 @@
+version: '2'
+services:
+  webserver:
+    build: .
+    ports: //port của server
+      - '80:80' 
+    volumes:
+      - ./:/var/www/html //Map (ánh xạ) thư mục gốc của máy thực vào thư mục html của container
+      - ./apache.conf:/etc/apache2/sites-available/000-default.conf // file comfig apache để cấu hình server
+    links:
+      - db // Nói cho container biết là sẽ liên kết đến container db được định nghĩa bên dưới.
+
+  db:
+    image: mysql:5.7 //container chúng ta dùng image mysql:5.7 từ docker hub
+    volumes: //ánh xạ thư mục .data/db với thư mục /var/lib/mysql của container
+      - "./data/db:/var/lib/mysql"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel_ddb //name db
+      MYSQL_USER: laravel //tên user
+      MYSQL_PASSWORD: laravel //password của user
+    ports:
+      - "3306:3306"
